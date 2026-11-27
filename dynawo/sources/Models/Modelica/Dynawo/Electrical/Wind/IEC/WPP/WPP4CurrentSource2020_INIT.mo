@@ -32,7 +32,7 @@ model WPP4CurrentSource2020_INIT "Wind Power Plant Type 4 model from IEC 61400-2
     Placement(transformation(origin = {-190, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  UWpp0DroppedPu = ((Modelica.ComplexMath.'abs'(uControl0Pu) - RwpDropPu * PControl0Pu / U0Pu - XwpDropPu * QControl0Pu / U0Pu) ^ 2 + (XwpDropPu * PControl0Pu / U0Pu - RwpDropPu * QControl0Pu / U0Pu) ^ 2) ^ 0.5;
+  UWpp0DroppedPu = ((Modelica.ComplexMath.abs(uControl0Pu) - RwpDropPu * PControl0Pu / U0Pu - XwpDropPu * QControl0Pu / U0Pu) ^ 2 + (XwpDropPu * PControl0Pu / U0Pu - RwpDropPu * QControl0Pu / U0Pu) ^ 2) ^ 0.5;
   X0Pu = if MwpqMode == 0 then QControl0Pu else if MwpqMode == 1 then QControl0Pu / PControl0Pu else if MwpqMode == 2 then UWpp0DroppedPu + combiTable1Ds6Init.y[1] else if MwpqMode == 3 then UWpp0DroppedPu + Kwpqu * QControl0Pu else 0;
 
   connect(realExpressionInit.y, combiTable1Ds6Init.u) annotation(

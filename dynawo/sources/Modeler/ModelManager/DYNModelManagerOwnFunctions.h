@@ -363,6 +363,18 @@ m_boolean* boolean_array_element_addr1(const boolean_array_t* source, int ndims,
 
 /**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/boolean_array.h
+ * It is needed for Dynawo models dynamic libraries compilation (used by Modelica.Math.BooleanVectors.anyTrue since MSL 4.0)
+ */
+modelica_boolean max_boolean_array(const boolean_array_t a);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/boolean_array.h
+ * It is needed for Dynawo models dynamic libraries compilation (used by Modelica.Math.BooleanVectors.andTrue since MSL 4.0)
+ */
+modelica_boolean min_boolean_array(const boolean_array_t a);
+
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/boolean_array.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
 inline void boolean_set(boolean_array_t *a, size_t i, modelica_boolean r) {

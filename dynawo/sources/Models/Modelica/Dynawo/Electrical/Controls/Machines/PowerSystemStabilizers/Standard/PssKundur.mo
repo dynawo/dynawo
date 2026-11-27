@@ -60,7 +60,6 @@ equation
     Line(points = {{102, 0}, {130, 0}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
-    uses(Modelica(version = "3.2.2")),
     Documentation(info = "<html><head></head><body>This model is inherited from the Kundur \"Power System Stability and Control\" book, section 13.3.3.
   Notations are kept identical whenever possible for readability reasons.</body></html>"),
   Diagram(coordinateSystem(extent = {{-120, -100}, {120, 100}})));

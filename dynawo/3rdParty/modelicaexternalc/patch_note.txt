@@ -1,0 +1,10 @@
+The external C sources of the Modelica Standard Library 4.1.0 (Modelica/Resources/C-Sources) are not patched.
+They are taken from the OpenModelica fork of the library (https://github.com/OpenModelica/OpenModelica-ModelicaStandardLibrary),
+pinned on a commit of the OM/maint/4.1.x branch (see modelicalib_commit in 3rdParty/CMakeLists.txt).
+
+Since MSL 4.0.0, the table and columns arguments of the ModelicaStandardTables_*_init functions are already declared const
+(const double* table, const int* columns), as required by the code generated for Dynawo models that is compiled in C++.
+
+Warning: DYNModelicaOverridenFunctions.cpp copies the internal structures CombiTimeTable, CombiTable1D and CombiTable2D
+and the Smoothness, Extrapolation, TimeEvents enumerations of ModelicaStandardTables.c (checked against MSL 4.1.0).
+They have to be checked if the version of the Modelica Standard Library is changed.

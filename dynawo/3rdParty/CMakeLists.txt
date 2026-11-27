@@ -178,15 +178,17 @@ endif()
 set(openmodelica_git     ${openmodelica_prefix_url}/OpenModelica/OpenModelica.git)
 set(openmodelica_tag     v${openmodelica_version})
 
-set(modelicalib_version  3.2.3)
+set(modelicalib_version  4.1.0)
+# OpenModelica fork of the MSL (no tags): pinned on a commit of the OM/maint/4.1.x branch
+set(modelicalib_commit   8df0769a9cee6ad04ddfff95faee64cd70f662ec)
 set(modelicalib_name     ModelicaStandardLibrary-${modelicalib_version}.tar.gz)
 if(DEFINED ENV{DYNAWO_MODELICALIB_DOWNLOAD_URL})
   set(modelicalib_prefix_url $ENV{DYNAWO_MODELICALIB_DOWNLOAD_URL})
 else()
-  set(modelicalib_prefix_url https://github.com/modelica/ModelicaStandardLibrary/archive)
+  set(modelicalib_prefix_url https://github.com/OpenModelica/OpenModelica-ModelicaStandardLibrary/archive)
 endif()
-set(modelicalib_url      ${modelicalib_prefix_url}/v${modelicalib_version}.tar.gz)
-set(modelicalib_md5      3ccc266305a0eeab365932688bce011f)
+set(modelicalib_url      ${modelicalib_prefix_url}/${modelicalib_commit}.tar.gz)
+set(modelicalib_md5      6f6e9568ff1b830d6052e39e47136f78)
 
 # Get patch command for a project
 # There may be a common patch and/or a patch for a specific compiler
@@ -753,31 +755,62 @@ if(NOT OMCompiler)
   endif()
   ExternalProject_Get_Property(openmodelica install_dir)
   set(OPENMODELICA_INSTALL ${install_dir} CACHE PATH "Path to OpenModelica installation" FORCE)
-
-  ExternalProject_Add(modelicalib
-    INSTALL_DIR         ${OPENMODELICA_INSTALL}/lib/omlibrary
-    DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/modelicalib
-    TMP_DIR             ${TMP_DIR}
-    STAMP_DIR           ${DOWNLOAD_DIR}/modelicalib-stamp
-    SOURCE_DIR          ${DOWNLOAD_DIR}/modelicalib
-    DOWNLOAD_NAME       ${modelicalib_name}
-    URL                 ${modelicalib_url}
-    URL_MD5             ${modelicalib_md5}
-    BUILD_IN_SOURCE     1
-
-    CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ""
-
-    # omc reads the library version from the directory name: it is needed to satisfy the uses annotations
-    # (otherwise omc >= 1.2x tries to download the library with its package manager)
-    INSTALL_COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/Modelica "<INSTALL_DIR>/Modelica ${modelicalib_version}"
-            COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/ModelicaServices "<INSTALL_DIR>/ModelicaServices ${modelicalib_version}"
-            COMMAND     ${CMAKE_COMMAND} -E copy_if_different <SOURCE_DIR>/Complex.mo "<INSTALL_DIR>/Complex ${modelicalib_version}.mo"
-  )
-  ExternalProject_Add_StepDependencies(openmodelica install modelicalib)
 else()
   add_custom_target(openmodelica)
 endif()
+
+# The Modelica Standard Library is installed in the OpenModelica library directory, also when an existing
+# OpenModelica installation is reused (pre-built OpenModelica on Windows for example, that ships another MSL version)
+ExternalProject_Add(modelicalib
+  INSTALL_DIR         ${OPENMODELICA_INSTALL}/lib/omlibrary
+  DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/modelicalib
+  TMP_DIR             ${TMP_DIR}
+  STAMP_DIR           ${DOWNLOAD_DIR}/modelicalib-stamp
+  SOURCE_DIR          ${DOWNLOAD_DIR}/modelicalib
+  DOWNLOAD_NAME       ${modelicalib_name}
+  URL                 ${modelicalib_url}
+  URL_MD5             ${modelicalib_md5}
+  BUILD_IN_SOURCE     1
+
+  CONFIGURE_COMMAND   ""
+  BUILD_COMMAND       ""
+
+  # omc reads the library version from the directory name: it is needed to satisfy the uses annotations
+  # (otherwise omc >= 1.2x tries to download the library with its package manager)
+  INSTALL_COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/Modelica "<INSTALL_DIR>/Modelica ${modelicalib_version}"
+          COMMAND     ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/ModelicaServices "<INSTALL_DIR>/ModelicaServices ${modelicalib_version}"
+          COMMAND     ${CMAKE_COMMAND} -E copy_if_different <SOURCE_DIR>/Complex.mo "<INSTALL_DIR>/Complex ${modelicalib_version}.mo"
+)
+if(NOT OMCompiler)
+  ExternalProject_Add_StepDependencies(openmodelica install modelicalib)
+endif()
+
+# External C sources of the Modelica Standard Library (ModelicaStandardTables, ModelicaStrings...)
+# Built as a static library, embedded by Dynawo into Modelica_externalC
+# together with its own implementation of ModelicaUtilities.h (DYNModelicaUtilities.cpp)
+GetPatchCommand(modelicaexternalc)
+ExternalProject_Add(modelicaexternalc
+  INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/modelicaexternalc
+  DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/modelicalib
+  TMP_DIR             ${TMP_DIR}
+  STAMP_DIR           ${DOWNLOAD_DIR}/modelicaexternalc-stamp
+  SOURCE_DIR          ${DOWNLOAD_DIR}/modelicaexternalc
+  BINARY_DIR          ${DOWNLOAD_DIR}/modelicaexternalc-build
+  SOURCE_SUBDIR       Modelica/Resources/C-Sources
+  DOWNLOAD_NAME       ${modelicalib_name}
+  URL                 ${modelicalib_url}
+  URL_MD5             ${modelicalib_md5}
+  PATCH_COMMAND       ${modelicaexternalc_patch_common}
+  COMMAND             ${modelicaexternalc_patch_compiler}
+  COMMAND             ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/modelicaexternalc/CMakeLists.txt <SOURCE_DIR>/Modelica/Resources/C-Sources/CMakeLists.txt
+
+  CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER}
+
+  CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
+                      -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+)
+# Both projects download the same archive in the same directory: avoid concurrent downloads
+add_dependencies(modelicaexternalc modelicalib)
 
 set(LIBZIP_HOME ${CMAKE_INSTALL_PREFIX}/libzip)
 find_package(libZIP 1.3.0 QUIET)

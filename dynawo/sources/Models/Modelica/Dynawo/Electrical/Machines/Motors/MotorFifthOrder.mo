@@ -51,7 +51,7 @@ model MotorFifthOrder "Two-cage (or one-cage if Lpp = Lp) induction motor model,
   Types.PerUnit clPu(start = ce0Pu) "Load torque in pu (base SNom, omegaNom)";
   Types.ActivePowerPu PRawPu(start = s0Pu.re) "Active power at load terminal without considering diconnections in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu QRawPu(start = s0Pu.im) "Reactive power at load terminal without considering diconnections in pu (base SnRef) (receptor convention)";
-  Types.VoltageModulePu UPu(start = ComplexMath.'abs'(u0Pu)) "Voltage amplitude at load terminal in pu (base UNom)";
+  Types.VoltageModulePu UPu(start = ComplexMath.abs(u0Pu)) "Voltage amplitude at load terminal in pu (base UNom)";
   Types.Time tTripThresholdReached1(start = Constants.inf) "Time when the trip threshold 1 was reached in s";
   Types.Time tTripThresholdReached2(start = Constants.inf) "Time when the trip threshold 2 was reached in s";
   Types.Time tReconnectThresholdReached1(start = Constants.inf) "Time when the reconnect threshold 1 was reached in s";
@@ -114,7 +114,7 @@ equation
   if ((V.re == 0) and (V.im == 0)) then
     UPu = 0.;
   else
-    UPu = ComplexMath.'abs'(V);
+    UPu = ComplexMath.abs(V);
   end if;
 
   // Trip block 1

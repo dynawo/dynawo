@@ -249,10 +249,10 @@ equation
   nodeFault.switchOffSignal1 = false;
   nodeFault.switchOffSignal2 = false;
 
-  check_UPu_bus_1041 = ComplexMath.'abs'(bus_1041.terminal.V);
-  check_UPu_bus_1042 = ComplexMath.'abs'(bus_1042.terminal.V);
-  check_UPu_bus_4012 = ComplexMath.'abs'(bus_4012.terminal.V);
-  check_UPu_bus_4062 = ComplexMath.'abs'(bus_4062.terminal.V);
+  check_UPu_bus_1041 = ComplexMath.abs(bus_1041.terminal.V);
+  check_UPu_bus_1042 = ComplexMath.abs(bus_1042.terminal.V);
+  check_UPu_bus_4012 = ComplexMath.abs(bus_4012.terminal.V);
+  check_UPu_bus_4062 = ComplexMath.abs(bus_4062.terminal.V);
   check_IrPu_g06 = g06.vrNordic.IrPu;
   check_IrPu_g07 = g07.vrNordic.IrPu;
   check_IrPu_g08 = g08.vrNordic.IrPu;

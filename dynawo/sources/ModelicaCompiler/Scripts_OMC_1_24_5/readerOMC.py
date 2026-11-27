@@ -1113,8 +1113,9 @@ class ReaderOMC:
                                 self.var_init_val_06inz[ var ] = list_body
                                 self.var_num_init_val_06inz[var] = num_function
 
+                    # omc_assert_warning( without equation indexes is used by the domain checks of functions (sqrt...)
                     for line in list_body:
-                        if 'omc_assert_warning' in line:
+                        if 'omc_assert_warning_withEquationIndexes(' in line:
                             self.warnings.append(list_body)
 
         ptrn_comments = re.compile(self.regular_expr_equation_index)

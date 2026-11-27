@@ -2086,6 +2086,8 @@ class Warn:
             line = line.replace("MMC_STRINGDATA","")
             line = replace_var_names(line)
             line = line.replace("threadData, ","")
+            # record constructors (*_wrap_vars) are generated without space after threadData
+            line = line.replace(THREAD_DATA_OMC_PARAM,"")
             line = sub_division_sim(line)
             if re.search(equality_prtn, line) is not None:
                 continue

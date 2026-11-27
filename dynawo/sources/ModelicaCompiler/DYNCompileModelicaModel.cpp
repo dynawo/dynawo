@@ -296,7 +296,8 @@ void mosAddFilesImport(const bool importModelicaPackage, const vector<string>& f
     // omc >= 1.2x only looks in ~/.openmodelica/libraries by default: use the library installed with OpenModelica
     const string omLibrary = boost::replace_all_copy(getMandatoryEnvVar("OPENMODELICAHOME"), "\\", "/") + "/lib/omlibrary";
     mosFile << "setModelicaPath(\"" << omLibrary << "\"); getErrorString();" << std::endl;
-    mosFile << "loadModel(Modelica); getErrorString();" << std::endl;
+    // explicit version: the Modelica Standard Library version installed with Dynawo 3rd parties (3rdParty/CMakeLists.txt)
+    mosFile << "loadModel(Modelica, {\"4.1.0\"}); getErrorString();" << std::endl;
     mosFile << std::endl;
   }
 

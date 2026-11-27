@@ -17,6 +17,11 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+void ModelicaMessage(const char *string) {
+  DYN::Trace::info() << string << DYN::Trace::endline;
+}
 
 void ModelicaVFormatMessage(const char *string, va_list args) {
   char buff[512];
@@ -29,6 +34,24 @@ void ModelicaFormatMessage(const char *string, ...) {
   va_list args;
   va_start(args, string);
   ModelicaVFormatMessage(string, args);
+  va_end(args);
+}
+
+void ModelicaWarning(const char *string) {
+  DYN::Trace::warn() << string << DYN::Trace::endline;
+}
+
+void ModelicaVFormatWarning(const char *string, va_list args) {
+  char buff[512];
+  vsnprintf(buff, sizeof(buff), string, args);
+  std::string buffAsStdStr = buff;
+  DYN::Trace::warn() << buffAsStdStr << DYN::Trace::endline;
+}
+
+void ModelicaFormatWarning(const char *string, ...) {
+  va_list args;
+  va_start(args, string);
+  ModelicaVFormatWarning(string, args);
   va_end(args);
 }
 
@@ -62,6 +85,23 @@ char* ModelicaAllocateString(size_t len) {
   char *res = ModelicaAllocateStringWithErrorReturn(len);
   if (!res) {
     ModelicaFormatError("%s:%d: ModelicaAllocateString failed", __FILE__, __LINE__);
+  }
+  return res;
+}
+
+char* ModelicaDuplicateStringWithErrorReturn(const char* str) {
+  const size_t len = strlen(str);
+  char *res = ModelicaAllocateStringWithErrorReturn(len);
+  if (res != NULL) {
+    memcpy(res, str, len);
+  }
+  return res;
+}
+
+char* ModelicaDuplicateString(const char* str) {
+  char *res = ModelicaDuplicateStringWithErrorReturn(str);
+  if (!res) {
+    ModelicaFormatError("%s:%d: ModelicaDuplicateString failed", __FILE__, __LINE__);
   }
   return res;
 }

@@ -29,7 +29,7 @@ partial model BaseLoad "Base model for loads"
   Modelica.Blocks.Interfaces.RealInput deltaQ(start = 0) "Delta to apply on QRef in %" annotation(
     Placement(transformation(origin = {75, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {80, -84}, extent = {{-16, -16}, {16, 16}}, rotation = 90)));
 
-  Modelica.Blocks.Interfaces.RealOutput UPu(start = ComplexMath.'abs'(u0Pu)) "Voltage amplitude at load terminal in pu (base UNom)";
+  Modelica.Blocks.Interfaces.RealOutput UPu(start = ComplexMath.abs(u0Pu)) "Voltage amplitude at load terminal in pu (base UNom)";
   Types.ActivePowerPu PPu(start = s0Pu.re) "Active power at load terminal in pu (base SnRef) (receptor convention)";
   Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at load terminal in pu (base SnRef) (receptor convention)";
   Types.ComplexApparentPowerPu SPu(re(start = s0Pu.re), im(start = s0Pu.im)) "Apparent power at load terminal in pu (base SnRef) (receptor convention)";
@@ -43,7 +43,7 @@ equation
   SPu = terminal.V * ComplexMath.conj(terminal.i);
 
   if running and terminal.V <> Complex(0) then
-    UPu = ComplexMath.'abs'(terminal.V);
+    UPu = ComplexMath.abs(terminal.V);
   else
     UPu = 0;
   end if;

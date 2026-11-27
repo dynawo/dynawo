@@ -5,9 +5,9 @@ generator_lambdaQ2Pu                              : y =  -0.5709472574 yp =   0.
 generator_lambdafPu                               : y =   0.8454444470 yp =   0.0000112178
 generator_omegaPu                                 : y =   1.2002120456 yp =  -0.0000139057
 generator_omegaRefPu                              : y =   1.0000000000 yp =   0.0000000000
-generator_terminal_V_im                           : y =   0.9950242057 yp =  13.0911758826
-generator_terminal_V_re                           : y =   0.0996323033 yp = -61.3905707096
-generator_theta                                   : y =1384.5192320179 yp =  62.8984691514
+generator_terminal_V_im                           : y =   0.9950242056 yp =  13.0911759194
+generator_terminal_V_re                           : y =   0.0996323039 yp = -61.3905707018
+generator_theta                                   : y =1384.5192320173 yp =  62.8984691514
 governor_PmRefPu                                  : y =   0.9068915577 yp =   0.0000000000
 governor_deltaPmRefPu                             : y =   0.0000000000 yp =   0.0000000000
 voltageRegulator_UsRefPu                          : y =   1.0000000000 yp =   0.0000000000
@@ -33,10 +33,10 @@ generator_mdsPu                                   : y =   1.8764050676 yp =  -0.
 generator_miPu                                    : y =   1.8764050676 yp =  -0.0000314153
 generator_mqsPu                                   : y =   1.8764050676 yp =  -0.0000314153
 generator_sin2Eta                                 : y =   0.3538740870 yp =   0.0000489436
-generator_terminal_i_im                           : y =  -0.0686582584 yp =  -1.9026383109
-generator_terminal_i_re                           : y =  -0.0228914087 yp =   4.1253856739
-generator_uStatorPu_im                            : y =   0.9950242057 yp =  13.0911758826
-generator_uStatorPu_re                            : y =   0.0996323033 yp = -61.3905707096
+generator_terminal_i_im                           : y =  -0.0686582584 yp =  -1.9026383133
+generator_terminal_i_re                           : y =  -0.0228914087 yp =   4.1253856728
+generator_uStatorPu_im                            : y =   0.9950242056 yp =  13.0911759194
+generator_uStatorPu_re                            : y =   0.0996323039 yp = -61.3905707018
 generator_udPu                                    : y =   0.6797823960 yp =   0.0001352859
 generator_ufPu                                    : y =   0.0006688082 yp =  -0.0000001559
 generator_uqPu                                    : y =   0.7334137031 yp =  -0.0000568822
@@ -99,8 +99,8 @@ generator_iStatorPu_re                            : y =  -0.0228914087
 generator_sStatorPu_im                            : y =  -0.0159369253
 generator_sStatorPu_re                            : y =  -0.0705973528
 generator_thetaInternal                           : y =   0.7474660022
-generator_uPu_im                                  : y =   0.9950242057
-generator_uPu_re                                  : y =   0.0996323033
+generator_uPu_im                                  : y =   0.9950242056
+generator_uPu_re                                  : y =   0.0996323039
 governor_limiter_simplifiedExpr                   : y =   0.0000000000
 voltageRegulator_integrator_local_set             : y =   0.0000000000
 voltageRegulator_limUsRef_simplifiedExpr          : y =   0.0000000000
@@ -268,11 +268,9 @@ generator_SwitchOffSignal10                        =  -1.0000000000
 generator_SwitchOffSignal20                        =  -1.0000000000
 generator_SwitchOffSignal30                        =  -1.0000000000
 governor_ActiveFrequencyRegulation                 =   1.0000000000
-governor_limiter_limitsAtInit                      =   1.0000000000
 governor_limiter_strict                            =  -1.0000000000
 voltageRegulator_integrator_use_reset              =  -1.0000000000
 voltageRegulator_integrator_use_set                =  -1.0000000000
-voltageRegulator_limUsRef_limitsAtInit             =   1.0000000000
 voltageRegulator_limUsRef_strict                   =  -1.0000000000
 generator_ExcitationPu                             =              1
 generator_NbSwitchOffSignals                       =              3

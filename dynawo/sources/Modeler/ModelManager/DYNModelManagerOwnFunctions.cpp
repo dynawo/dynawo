@@ -1068,6 +1068,26 @@ m_boolean* boolean_array_element_addr1(const boolean_array_t* source, int /*ndim
     return boolean_ptrget(source, dim1 - 1);
 }
 
+modelica_boolean max_boolean_array(const boolean_array_t a) {
+    const size_t nr_of_elements = base_array_nr_of_elements(a);
+    for (size_t i = 0; i < nr_of_elements; ++i) {
+        if (*boolean_ptrget(&a, i)) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+modelica_boolean min_boolean_array(const boolean_array_t a) {
+    const size_t nr_of_elements = base_array_nr_of_elements(a);
+    for (size_t i = 0; i < nr_of_elements; ++i) {
+        if (!*boolean_ptrget(&a, i)) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
 void simple_alloc_1d_boolean_array(boolean_array_t* dest, int n) {
     simple_alloc_1d_base_array(dest, n, boolean_alloc(n));
 }

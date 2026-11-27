@@ -16,7 +16,7 @@ generator_MdSatPPu                                : y =       0.516151 yp =     
 generator_MqSatPPu                                : y =       0.216151 yp =      -0.000000
 generator_cePu                                    : y =       0.000089 yp =      -0.000000
 generator_cmPu                                    : y =       0.000095 yp =       0.000000
-generator_cos2Eta                                 : y =       1.000000 yp =       0.000000
+generator_cos2Eta                                 : y =       1.000000 yp =      -0.000000
 generator_iDPu                                    : y =      -0.000000 yp =       0.000000
 generator_iQ1Pu                                   : y =      -0.000000 yp =      -0.000000
 generator_iQ2Pu                                   : y =       0.000000 yp =      -0.000000
@@ -248,9 +248,7 @@ generator_SwitchOffSignal10                        =      -1.000000
 generator_SwitchOffSignal20                        =      -1.000000
 generator_SwitchOffSignal30                        =      -1.000000
 governor_ActiveFrequencyRegulation                 =       1.000000
-governor_limiter_limitsAtInit                      =       1.000000
 governor_limiter_strict                            =      -1.000000
-voltageRegulator_limUsRef_limitsAtInit             =       1.000000
 voltageRegulator_limUsRef_strict                   =      -1.000000
 generator_ExcitationPu                             =              1
 generator_NbSwitchOffSignals                       =              3

@@ -74,7 +74,7 @@ model GeneratorSynchronous "Synchronous machine"
 
 equation
   if running then
-    UPu = ComplexMath.'abs'(terminal.V);
+    UPu = ComplexMath.abs(terminal.V);
     uPu = terminal.V;
 
     // Active and reactive power at terminal
@@ -92,12 +92,12 @@ equation
     if ((uStatorPu.re == 0) and (uStatorPu.im == 0)) then
       UStatorPu = 0.;
     else
-      UStatorPu = ComplexMath.'abs'(uStatorPu);
+      UStatorPu = ComplexMath.abs(uStatorPu);
     end if;
     if ((iStatorPu.re == 0) and (iStatorPu.im == 0)) then
       IStatorPu = 0.;
     else
-      IStatorPu = ComplexMath.'abs'(iStatorPu);
+      IStatorPu = ComplexMath.abs(iStatorPu);
     end if;
     QStatorPu = - ComplexMath.imag(sStatorPu);
     QStatorPuQNom = QStatorPu * SystemBase.SnRef / QNomAlt;

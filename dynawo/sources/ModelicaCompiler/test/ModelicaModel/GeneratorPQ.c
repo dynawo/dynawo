@@ -257,12 +257,12 @@ static const MMC_DEFSTRINGLIT(_OMC_LIT_RESOURCE_0_name,7,_OMC_LIT_RESOURCE_0_nam
 static const MMC_DEFSTRINGLIT(_OMC_LIT_RESOURCE_0_dir,63,_OMC_LIT_RESOURCE_0_dir_data);
 
 #define _OMC_LIT_RESOURCE_1_name_data "Dynawo"
-#define _OMC_LIT_RESOURCE_1_dir_data "/home/rosiereflo/Projects/dynawo_ter/dynawo/install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo"
+#define _OMC_LIT_RESOURCE_1_dir_data "install/gcc11/2292_om_1.24.4/Debug/shared/dynawo/ddb/Dynawo"
 static const MMC_DEFSTRINGLIT(_OMC_LIT_RESOURCE_1_name,6,_OMC_LIT_RESOURCE_1_name_data);
 static const MMC_DEFSTRINGLIT(_OMC_LIT_RESOURCE_1_dir,103,_OMC_LIT_RESOURCE_1_dir_data);
 
 #define _OMC_LIT_RESOURCE_2_name_data "GeneratorPQ"
-#define _OMC_LIT_RESOURCE_2_dir_data "/home/rosiereflo/Projects/dynawo_ter/dynawo/build/gcc11/2292_om_1.24.4/Debug/shared/dynawo/M/M/P/GeneratorPQ"
+#define _OMC_LIT_RESOURCE_2_dir_data "build/gcc11/2292_om_1.24.4/Debug/shared/dynawo/M/M/P/GeneratorPQ"
 static const MMC_DEFSTRINGLIT(_OMC_LIT_RESOURCE_2_name,11,_OMC_LIT_RESOURCE_2_name_data);
 static const MMC_DEFSTRINGLIT(_OMC_LIT_RESOURCE_2_dir,108,_OMC_LIT_RESOURCE_2_dir_data);
 
@@ -286,7 +286,7 @@ void GeneratorPQ_setupDataStruc(DATA *data, threadData_t *threadData)
   data->modelData->modelName = "GeneratorPQ";
   data->modelData->modelFilePrefix = "GeneratorPQ";
   data->modelData->resultFileName = NULL;
-  data->modelData->modelDir = "/home/rosiereflo/Projects/dynawo_ter/dynawo/build/gcc11/2292_om_1.24.4/Debug/shared/dynawo/M/M/P/GeneratorPQ";
+  data->modelData->modelDir = "build/gcc11/2292_om_1.24.4/Debug/shared/dynawo/M/M/P/GeneratorPQ";
   data->modelData->modelGUID = "{8c4e810f-3df3-4a00-8276-176fa3c9f9e0}";
   #if defined(OPENMODELICA_XML_FROM_FILE_AT_RUNTIME)
   data->modelData->initXMLData = NULL;
