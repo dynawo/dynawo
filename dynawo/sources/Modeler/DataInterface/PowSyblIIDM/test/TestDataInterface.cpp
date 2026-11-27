@@ -1948,22 +1948,22 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDM) {
   double VRebase3 = VNomLeg3 * VNomLeg3 / (threeWTIIDM.getRatedU0() * threeWTIIDM.getRatedU0());
   ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf1->getR(), threeWTIIDM.getLeg1().getR() * VRebase1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf1->getX(), threeWTIIDM.getLeg1().getX() * VRebase1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf1->getG(), threeWTIIDM.getLeg1().getG() * VRebase1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf1->getB(), threeWTIIDM.getLeg1().getB() * VRebase1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf1->getG(), threeWTIIDM.getLeg1().getG() / VRebase1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf1->getB(), threeWTIIDM.getLeg1().getB() / VRebase1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf1->getRatedU1(), threeWTIIDM.getRatedU0());
   ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf1->getRatedU2(), threeWTIIDM.getLeg1().getRatedU());
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf2->getR(), threeWTIIDM.getLeg2().getR() * VRebase2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf2->getX(), threeWTIIDM.getLeg2().getX() * VRebase2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf2->getG(), threeWTIIDM.getLeg2().getG() * VRebase2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf2->getB(), threeWTIIDM.getLeg2().getB() * VRebase2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf2->getG(), threeWTIIDM.getLeg2().getG() / VRebase2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf2->getB(), threeWTIIDM.getLeg2().getB() / VRebase2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf2->getRatedU1(), threeWTIIDM.getRatedU0());
   ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf2->getRatedU2(), threeWTIIDM.getLeg2().getRatedU());
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf3->getR(), threeWTIIDM.getLeg3().getR() * VRebase3);
   ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf3->getX(), threeWTIIDM.getLeg3().getX() * VRebase3);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf3->getG(), threeWTIIDM.getLeg3().getG() * VRebase3);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf3->getB(), threeWTIIDM.getLeg3().getB() * VRebase3);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf3->getG(), threeWTIIDM.getLeg3().getG() / VRebase3);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf3->getB(), threeWTIIDM.getLeg3().getB() / VRebase3);
   ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf3->getRatedU1(), threeWTIIDM.getRatedU0());
   ASSERT_DOUBLE_EQUALS_DYNAWO(FictTwoWTransf3->getRatedU2(), threeWTIIDM.getLeg3().getRatedU());
 
