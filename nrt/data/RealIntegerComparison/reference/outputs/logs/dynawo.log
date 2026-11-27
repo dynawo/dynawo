@@ -1,0 +1,117 @@
+INFO |  ============================================================ 
+INFO | DYNAWO VERSION  :     2.0.0
+INFO | DYNAWO REVISION :          -
+INFO |  ============================================================ 
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | building model from input files
+INFO | -----------------------------------------------------------------------
+INFO | model was built successfully
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting local initialization
+INFO | -----------------------------------------------------------------------
+INFO | end of local initialization
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting global initialization
+INFO | -----------------------------------------------------------------------
+INFO | end of global initialization
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting curve initialization
+INFO | -----------------------------------------------------------------------
+INFO | end of curve initialization, added 9 curves
+INFO | -----------------------------------------------------------------------
+INFO | 
+INFO | -----------------------------------------------------------------------
+INFO | starting simulation with solver SimplifiedSolver
+INFO | -----------------------------------------------------------------------
+INFO | -----------------------------------------------------------------------
+INFO | number of continuous variables : 0
+INFO | number of discrete variables : 9
+INFO | number of root functions : 1
+INFO | -----------------------------------------------------------------------
+INFO |         time ¦ iter num   Nonlinear iter   jac eval      time step (h)
+INFO | -----------------------------------------------------------------------
+INFO |        0.000 ¦        0                0          0              0.100 
+INFO |        0.100 ¦        1                0          0              0.100 
+INFO |        0.200 ¦        2                0          0              0.100 
+INFO |        0.300 ¦        3                0          0              0.100 
+INFO |        0.400 ¦        4                0          0              0.100 
+INFO |        0.500 ¦        5                0          0              0.100 
+INFO |        0.600 ¦        6                0          0              0.100 
+INFO |        0.700 ¦        7                0          0              0.100 
+INFO |        0.800 ¦        8                0          0              0.100 
+INFO |        0.900 ¦        9                0          0              0.100 
+INFO |        1.000 ¦       10                0          0              0.100 
+INFO |        1.100 ¦       11                0          0              0.100 
+INFO |        1.200 ¦       12                0          0              0.100 
+INFO |        1.300 ¦       13                0          0              0.100 
+INFO |        1.400 ¦       14                0          0              0.100 
+INFO |        1.500 ¦       15                0          0              0.100 
+INFO |        1.600 ¦       16                0          0              0.100 
+INFO |        1.700 ¦       17                0          0              0.100 
+INFO |        1.800 ¦       18                0          0              0.100 
+INFO |        1.900 ¦       19                0          0              0.100 
+INFO |        2.000 ¦       20                0          0              0.100 
+INFO |        2.100 ¦       21                0          0              0.100 
+INFO |        2.200 ¦       22                0          0              0.100 
+INFO |        2.300 ¦       23                0          0              0.100 
+INFO |        2.400 ¦       24                0          0              0.100 
+INFO |        2.500 ¦       25                0          0              0.100 
+INFO |        2.600 ¦       26                0          0              0.100 
+INFO |        2.700 ¦       27                0          0              0.100 
+INFO |        2.800 ¦       28                0          0              0.100 
+INFO |        2.900 ¦       29                0          0              0.100 
+INFO |        3.000 ¦       30                0          0              0.100 
+INFO |        3.100 ¦       31                0          0              0.100 
+INFO |        3.200 ¦       32                0          0              0.100 
+INFO |        3.300 ¦       33                0          0              0.100 
+INFO |        3.400 ¦       34                0          0              0.100 
+INFO |        3.500 ¦       35                0          0              0.100 
+INFO |        3.600 ¦       36                0          0              0.100 
+INFO |        3.700 ¦       37                0          0              0.100 
+INFO |        3.800 ¦       38                0          0              0.100 
+INFO |        3.900 ¦       39                0          0              0.100 
+INFO |        4.000 ¦       40                0          0              0.100 
+INFO |        4.100 ¦       41                0          0              0.100 
+INFO |        4.200 ¦       42                0          0              0.100 
+INFO |        4.300 ¦       43                0          0              0.100 
+INFO |        4.400 ¦       44                0          0              0.100 
+INFO |        4.500 ¦       45                0          0              0.100 
+INFO |        4.600 ¦       46                0          0              0.100 
+INFO |        4.700 ¦       47                0          0              0.100 
+INFO |        4.800 ¦       48                0          0              0.100 
+INFO |        4.900 ¦       49                0          0              0.100 
+INFO |        5.000 ¦       50                0          0              0.100 
+INFO |        5.100 ¦       51                0          0              0.100 
+INFO |        5.200 ¦       52                0          0              0.100 
+INFO |        5.300 ¦       53                0          0              0.100 
+INFO |        5.400 ¦       54                0          0              0.100 
+INFO |        5.500 ¦       55                0          0              0.100 
+INFO |        5.500 ¦       56                0          0              0.000 
+INFO | 
+INFO | execution statistics :
+INFO | 
+INFO | number of time iterations                                  = 56
+INFO | number of residual evaluations                             = 0
+INFO | number of Jacobian evaluations                             = 0
+INFO | number of nonlinear iterations                             = 0
+INFO | number of error test failures                              = 0
+INFO | number of nonlinear convergence failures                   = 0
+INFO | number of solver root functions evaluations                = 0
+INFO | number of internal root functions evaluations              = 61
+INFO | number of discrete variables evaluations                   = 16
+INFO | number of mode evaluations                                 = 11
+INFO | number of differential mode                                = 0
+INFO | number of algebraic mode                                   = 0
+INFO | number of algebraic J update mode                          = 0
+INFO | number of algebraic restoration residual evaluations       = 0
+INFO | number of algebraic restoration Jacobian evaluations       = 0
+INFO | number of algebraic prim restoration residual evaluations  = 0
+INFO | number of algebraic prim restoration Jacobian evaluations  = 0
+INFO | end of job 'RealIntegerComparison'
