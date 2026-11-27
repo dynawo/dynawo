@@ -8,7 +8,7 @@
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
-    This file is part of Dynawo, an hybrid C++/Modelica open source suite of
+    This file is part of Dynawo, a hybrid C++/Modelica open source suite of
     simulation tools for power systems.
 -->
 <network xmlns="http://www.itesla_project.eu/schema/iidm/1_0" xmlns:as="http://www.itesla_project.eu/schema/iidm/ext/active-season/1_0" xmlns:bbsp="http://www.itesla_project.eu/schema/iidm/ext/busbarsectionposition/1_0" xmlns:clps="http://www.itesla_project.eu/schema/iidm/ext/current-limits-per-season/1_0" xmlns:cp="http://www.itesla_project.eu/schema/iidm/ext/connectable_position/1_0" xmlns:gapc="http://www.itesla_project.eu/schema/iidm/ext/generator_active_power_control/1_0" xmlns:gec="http://www.itesla_project.eu/schema/iidm/ext/generator_entsoe_category/1_0" xmlns:gs="http://www.itesla_project.eu/schema/iidm/ext/generator_startup/1_0" xmlns:hapc="http://www.itesla_project.eu/schema/iidm/ext/hvdc_angle_droop_active_power_control/1_0" xmlns:hopr="http://www.itesla_project.eu/schema/iidm/ext/hvdc_operator_active_power_range/1_0" xmlns:ld="http://www.itesla_project.eu/schema/iidm/ext/load_detail/1_0" xmlns:sa="http://www.itesla_project.eu/schema/iidm/ext/standby_automaton/1_0" id="ieee14bus" caseDate="2017-06-09T10:14:24.146+02:00" forecastDistance="0" sourceFormat="CIM1">

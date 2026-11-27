@@ -10,7 +10,7 @@ within Dynawo.Electrical.Lines;
 * file, you can obtain one at http://mozilla.org/MPL/2.0/.
 * SPDX-License-Identifier: MPL-2.0
 *
-* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+* This file is part of Dynawo, a hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
 model DynLineRLC "AC power line - Fully Dynamic Pi model (series R+jX, shunt G+jB split half/half on each side, both with dynamic states in the network rotating reference frame)"
